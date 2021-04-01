@@ -20,8 +20,8 @@ function HomePage() {
           
           
           <section id="homePageSection" className="d-flex ">
-					<div className="container">
-						<h1>Welcome to Health Clinic</h1>
+					<div className="container" style={{textAlign: "center"}}>
+						<h1>Welcome to Health Clinic </h1>
 
             <Link  to="/login" className="btn-Login-Register">
 							Login
