@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import Header from './Header';
-import MedicamentPicture from "../Images/medicament.jpg" ;
+import PharmacyLogoPicture from "../Images/pharmacyLogo.jpg" ;
 const API_URL="http://localhost:8080";
 
-class Drugs extends Component {
+class Pharmacies extends Component {
 	
   
     
     state = {
-		allDrugs: [],
-    drugSearchName: "",
-    drugSearchProducerName: "",
-    drugSearchFabricCode: "",
-    showSearchedForm: false,
-    showResetSearced: false,
-    inputError : "none"
+	
+        allPharmacies: [],
+        pharmacySearchName: "",
+        searchCountryName: "",
+        searchStreetName: "",
+        searchCityName: "",
+        showSearchedForm: false,
+        showResetSearced: false,
+        inputError : "none"
 		
 
 
@@ -27,10 +29,10 @@ class Drugs extends Component {
   componentDidMount() {
 		
 
-		Axios.get(API_URL + "/drug/allDrugs")
+		Axios.get(API_URL + "/pharmacy/allPharmacies")
 
 			.then((res) => {
-				this.setState({ allDrugs: res.data });
+				this.setState({ allPharmacies: res.data });
 			})
 			.catch((err) => {
 				console.log(err);
@@ -50,15 +52,16 @@ class Drugs extends Component {
    
     this.setState({showSearchedForm : !this.state.showSearchedForm,
                     showResetSearced: false});
-
+          
                     if(this.state.showSearchedForm===false){
 
                       this.setState({
     
                         showResetSearced: true,
-                        drugSearchName: "",
-                        drugSearchProducerName: "",
-                        drugSearchFabricCode: "", 
+                        pharmacySearchName: "",
+                        searchCountryName: "",
+                        searchStreetName: "",
+                        searchCityName: "",
                         inputError : "none"     
                       
                       });
@@ -68,78 +71,92 @@ class Drugs extends Component {
                     
    }
 
-   handleSearchNameChange = (event) => {
-		this.setState({ drugSearchName: event.target.value });
+   handlePharmacySearchNameChange = (event) => {
+		this.setState({ pharmacySearchName: event.target.value });
 	};
 
-  handleSearchProducerNameChange= (event) => {
-		this.setState({ drugSearchProducerName: event.target.value });
+  handleSearchCountryNameChange= (event) => {
+		this.setState({ searchCountryName: event.target.value });
 	};
 
-  handleSearchFabricCodeChange= (event) => {
-		this.setState({ drugSearchFabricCode: event.target.value });
+  handleSearchStreetNameChange= (event) => {
+		this.setState({ searchStreetName: event.target.value });
 	};
 
   
-
-
-   SearchDrugs = () => {
-
-
-  if (this.state.drugSearchName === "" && this.state.drugSearchProducerName === "" &&  this.state.drugSearchFabricCode=== "" ) {
-        this.setState({ inputError : "initial" });
-           return false;
-  } 
-
-  this.setState({ inputError : "none" });
-
-    const searchDTO = {
-
-      name : this.state.drugSearchName,
-      producerName : this.state.drugSearchProducerName,
-      fabricCode : "",
-
-
-     };
-          
-		Axios.post(API_URL + "/drug/searchDrugs", searchDTO)
-
-		.then((res) => {
-      this.setState({
-        allDrugs: res.data,
-        showResetSearced : true,
-        showSearchedForm : false,      
-      
-      });
-     
-    })
-    .catch((err) => {
-      console.log(err);
-      
-    });
-
-		
+  handleSearchCityNameChange= (event) => {
+		this.setState({ searchCityName: event.target.value });
 	};
 
-  resetSearch = () => {
+
+
+    SearchPharmacies = () => {
+
+
+    if (this.state.pharmacySearchName === "" && this.state.searchCityName === "" 
+          &&  this.state.searchCountryName=== "" &&  this.state.searchStreetName=== "" ) {
+          this.setState({ inputError : "initial" });
+             return false;
+    } 
+  
+    this.setState({ inputError : "none" });
+  
+      const searchDTO = {
+  
+        name : this.state.pharmacySearchName,
+        street : this.state.searchStreetName,
+        city: this.state.searchCityName,
+        country : this.state.searchCountryName,
+  
+  
+       };
+
+      
+
+      Axios.post(API_URL + "/pharmacy/searchPharmacies", searchDTO)
+  
+      .then((res) => {
+        this.setState({
+          allPharmacies: res.data,
+          showResetSearced : true,
+          showSearchedForm : false,      
+        
+        });
+       
+      })
+      .catch((err) => {
+        console.log(err);
+        
+      });
+  
+      
+    };
+
+
+
+
+
+    resetSearch = () => {
 
    
     this.setState({
     
      showResetSearced : false,
      showSearchedForm : false, 
-     drugSearchName: "",
-     drugSearchProducerName: "",
-     drugSearchFabricCode: "", 
+     pharmacySearchName: "",
+     searchCountryName: "",
+     searchStreetName: "",
+     searchCityName: "",
      inputError : "none"     
    
    });
 
           
-    Axios.get(API_URL + "/drug/allDrugs")
+    Axios.get(API_URL + "/pharmacy/allPharmacies")
 
     .then((res) => {
-      this.setState({ allDrugs: res.data });
+      this.setState({ allPharmacies
+        : res.data });
     })
     .catch((err) => {
       console.log(err);
@@ -149,6 +166,10 @@ class Drugs extends Component {
 		
 	};
 
+
+   
+
+ 
 
 
 	render() {
@@ -160,7 +181,7 @@ class Drugs extends Component {
 
       <Header/>
       
-      <div id="allDrugs">
+      <div id="allPharmacies">
 
             
            
@@ -189,27 +210,43 @@ class Drugs extends Component {
 						
               
               <input
-								placeholder="Name"
+								placeholder="Pharmacy name"
                 class="form-control mr-2"
 								type="text"
-								onChange={this.handleSearchNameChange}
-								value={this.state.drugSearchName}
+								onChange={this.handlePharmacySearchNameChange}
+								value={this.state.pharmacySearchName}
 							/>             
-              
-              <input
-								placeholder="Producer name"
-                class="form-control mr-2"
-								type="text"
-								onChange={this.handleSearchProducerNameChange}
-								value={this.state.drugSearchProducerName}
-							/>
-              
-
               
              
               
+              <input
+								placeholder="Street"
+                class="form-control mr-2"
+								type="text"
+								onChange={this.handleSearchStreetNameChange}
+								value={this.state.searchStreetName}
+							/>
+
+              <input
+								placeholder="City"
+                class="form-control mr-2"
+								type="text"
+								onChange={this.handleSearchCityNameChange}
+								value={this.state.searchCityName}
+							/>
+					  	
+
+              <input
+								placeholder="Country"
+                class="form-control mr-2"
+								type="text"
+								onChange={this. handleSearchCountryNameChange}
+								value={this.state.searchCountryName}
+							/>
+              
+              
 							<button								
-								onClick={this.SearchDrugs}
+								onClick={this.SearchPharmacies}
 								className="btn btn-outline-primary btn-lg "
 								type="button"
                 
@@ -229,18 +266,18 @@ class Drugs extends Component {
 
 
         <div className="container">
-                    <h1 >All drugs</h1>
+                    <h1 >All pharmacies</h1>
                     <table className="table" style={{ width: "70%", marginTop: "5em", marginLeft: "auto",marginRight: "auto" }}>
                         
                         <tbody>
                             {
-                                this.state.allDrugs.map((drug) => (
-                                    <tr key={drug.Id} id={drug.Id} >
+                                this.state.allPharmacies.map((pharmacy) => (
+                                    <tr key={pharmacy.Id} id={pharmacy.Id} >
                                        
 
                                       <td width="100px">  
                                        
-                                        <img src={MedicamentPicture } width="70px"></img>                                 
+                                        <img src={PharmacyLogoPicture} width="70px"></img>                                 
                                      
                                       </td>
 
@@ -248,15 +285,16 @@ class Drugs extends Component {
                                       <td>
                                         
                                         <div>  
-                                        <b>Name: </b>{drug.EntityDTO.name}
+                                        <b>Name: </b>{pharmacy.EntityDTO.name}
                                         </div>  
 
                                         <div>  
-                                        <b>Producer name: </b> {drug.EntityDTO.producerName}
+                                        <b>Location: </b> {pharmacy.EntityDTO.address.street}, {" "} {pharmacy.EntityDTO.address.city},{" "}
+										                                      {pharmacy.EntityDTO.address.country}
                                         </div> 
 
                                         <div>  
-                                        <b>Fabric code: </b>{drug.EntityDTO.fabricCode}
+                                        <b>Description: </b>{pharmacy.EntityDTO.description}
                                         </div>
 
                                       </td>
@@ -275,4 +313,4 @@ class Drugs extends Component {
 	}
 }
 
-export default Drugs;
+export default Pharmacies;
