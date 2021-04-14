@@ -70,6 +70,10 @@ class Header extends React.Component{
                 <Link to="/drugs">
                 <ReactBootStrap.Nav.Link href="#deets">Drugs</ReactBootStrap.Nav.Link>
                 </Link>
+
+                <Link to="/pharmacies">
+                <ReactBootStrap.Nav.Link href="#deets">Pharmacies</ReactBootStrap.Nav.Link>
+                </Link>
             
                 <ReactBootStrap.NavDropdown alignRight title="Apointment" id="collasible-nav-dropdown">
                     <ReactBootStrap.NavDropdown.Item href="/pharmacistApointment">Pharmacist</ReactBootStrap.NavDropdown.Item>
