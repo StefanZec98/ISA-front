@@ -6,6 +6,7 @@ import Pharmacies from "./Components/Pharmacies"
 import Login from "./Components/Login"
 import UserService from "./services/UserService"
 import RegisterPage from "./Components/RegistrationPage"
+import LoginPage from "./Components/LoginPage"
 
 import {
   BrowserRouter as Router,
@@ -24,9 +25,12 @@ function App() {
         <Switch>
         <Route exact to ="/"  path ="/" component={HomePage}/>
         <Route  to ="/drugs" path ="/drugs"  component={Drugs}/>
+
+
         <Route  to ="/pharmacies" path ="/pharmacies"  component={Pharmacies}/>
-        <Route  to ="/login" path ="/login"  component={Login}/>
+        
         <Route  to ="/registration" path ="/registration"  component={RegisterPage}/>
+        <Route  to ="/login" path ="/login"  component={LoginPage}/>
         </Switch>
     </Router>
      
