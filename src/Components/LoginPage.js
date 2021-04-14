@@ -1,11 +1,15 @@
 import Header from './Header';
 import React, { Component } from "react";
+import Axios from "axios";
+
 
 class LoginPage extends Component {
 
     state = {
         email: "",
 		password: "",
+        errorHeader: "",
+        redirect: false,
         
 
 
@@ -19,7 +23,31 @@ class LoginPage extends Component {
 		this.setState({ password: event.target.value });
 	};
 
+    handleLogin = () => {
+        let loginDTO = { username: this.state.email, password: this.state.password };
+        console.log(loginDTO);
+        Axios.post("http://localhost:8080/log/login", loginDTO, { validateStatus: () => true })
+        .then((res) => {
+            if (res.status === 401) {
+                this.setState({ errorHeader: "Bad credentials!"});
+            } else if (res.status === 500) {
+                this.setState({ errorHeader: "Internal server error!"});
+            } else {
+                console.log(res.data);
+                localStorage.setItem("keyToken", res.data.accessToken);
+                localStorage.setItem("keyRole", JSON.stringify(res.data.roles));
+                localStorage.setItem("expireTime", new Date(new Date().getTime() + res.data.expiresIn).getTime());
+
+                this.setState({ redirect: true });
+            }
+        })
+        .catch ((err) => {
+			console.log(err);
+		});
+    };
+
     render() {
+        if (this.state.redirect) return <Redirect push to="/" />;
         return(
             <React.Fragment>
                 <Header/> 
@@ -43,7 +71,7 @@ class LoginPage extends Component {
                     
                     
                     <div class="text-center">
-                    <button type="button" class="btn btn-primary " style={{width: "20%"}}>Submit</button>
+                    <button type="button" class="btn btn-primary " style={{width: "20%"}} onClick={this.handleLogin} >Submit</button>
                     </div>
 
                 </form>
