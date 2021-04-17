@@ -1,7 +1,7 @@
 import Header from './Header';
 import React, { Component } from "react";
 import Axios from "axios";
-
+import { Redirect } from "react-router-dom";
 
 class LoginPage extends Component {
 
@@ -66,7 +66,7 @@ class LoginPage extends Component {
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input type="Password" onChange={this.handleNameChange} value={this.state.name} class="form-control" id="password" placeholder="Password"/>
+                        <input type="Password" onChange={this.handlePasswordChange} value={this.state.name} class="form-control" id="password" placeholder="Password"/>
                     </div>
                     
                     
