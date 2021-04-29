@@ -2,8 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import HomePage from "./Components/HomePage"
 import Drugs from "./Components/Drugs"
+import Pharmacies from "./Components/Pharmacies"
 import Login from "./Components/Login"
 import UserService from "./services/UserService"
+import RegisterPage from "./Components/RegistrationPage"
+import LoginPage from "./Components/LoginPage"
 
 import {
   BrowserRouter as Router,
@@ -22,7 +25,12 @@ function App() {
         <Switch>
         <Route exact to ="/"  path ="/" component={HomePage}/>
         <Route  to ="/drugs" path ="/drugs"  component={Drugs}/>
-        <Route  to ="/login" path ="/login"  component={Login}/>
+
+
+        <Route  to ="/pharmacies" path ="/pharmacies"  component={Pharmacies}/>
+        
+        <Route  to ="/registration" path ="/registration"  component={RegisterPage}/>
+        <Route  to ="/login" path ="/login"  component={LoginPage}/>
         </Switch>
     </Router>
      

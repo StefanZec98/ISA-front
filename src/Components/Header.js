@@ -70,6 +70,10 @@ class Header extends React.Component{
                 <Link to="/drugs">
                 <ReactBootStrap.Nav.Link href="#deets">Drugs</ReactBootStrap.Nav.Link>
                 </Link>
+
+                <Link to="/pharmacies">
+                <ReactBootStrap.Nav.Link href="#deets">Pharmacies</ReactBootStrap.Nav.Link>
+                </Link>
             
                 <ReactBootStrap.NavDropdown alignRight title="Apointment" id="collasible-nav-dropdown">
                     <ReactBootStrap.NavDropdown.Item href="/pharmacistApointment">Pharmacist</ReactBootStrap.NavDropdown.Item>
@@ -84,6 +88,7 @@ class Header extends React.Component{
                     <ReactBootStrap.NavDropdown.Item href="/registration" hidden={this.IsLogedIn()}>Register</ReactBootStrap.NavDropdown.Item>
                     <ReactBootStrap.NavDropdown.Divider hidden={!this.hasRole("*")} />
                     <ReactBootStrap.NavDropdown.Item href="/profile" hidden={!this.hasRole("*")}>My profile</ReactBootStrap.NavDropdown.Item>
+                    <ReactBootStrap.NavDropdown.Item onClick={this.handleLogout} href="/login" hidden={!this.IsLogedIn()}>Logout</ReactBootStrap.NavDropdown.Item>
                     
                 </ReactBootStrap.NavDropdown>
             

@@ -72,6 +72,44 @@
 
   }
   
+  /* *****************************************
+***************DRUGS**************************************
+ */
+  
+  #allDrugs h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 40px;
+    font-weight: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    color: #00070e;  
+    text-transform: uppercase;
+    
+
+
+  }
+
+
+/* *****************************************
+***************PHARMACIES**************************************
+ */
+
+  #allPharmacies h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 40px;
+    font-weight: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    color: #00070e;  
+    text-transform: uppercase;
+    
+
+
+  }
   
   
  
