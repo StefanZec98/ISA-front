@@ -5,8 +5,31 @@ import TopBar from './TopBar';
 import { Link } from "react-router-dom";
 
 
+class HomePage extends React.Component {
 
-function HomePage() {
+
+      hasSpecificRole = (reqRole) => {
+      let roles = JSON.parse(localStorage.getItem("keyRole"));
+
+      if (roles === null) return false;
+
+      for (let role of roles) {
+        if (role === reqRole) return true;
+      }
+      return false;
+      };
+
+      hasAnyRole = (reqRole) => {
+        let roles = JSON.parse(localStorage.getItem("keyRole"));
+  
+        if (roles === null) return false;
+
+        return true;
+        };
+
+    
+    
+    render() {
     return (
      
       <React.Fragment>
@@ -23,11 +46,11 @@ function HomePage() {
 					<div className="container" style={{textAlign: "center"}}>
 						<h1>Welcome to Health Clinic </h1>
 
-            <Link  to="/login" className="btn-Login-Register">
+            <Link  to="/login" hidden={this.hasSpecificRole("ROLE_PATIENT")} className="btn-Login-Register">
 							Login
 						</Link>
 
-						<Link  to="/registration" className="btn-Login-Register">
+						<Link  to="/registration" hidden={this.hasSpecificRole("ROLE_PATIENT")} className="btn-Login-Register">
 							Register
 						</Link>
       
@@ -43,5 +66,6 @@ function HomePage() {
       </React.Fragment>
     );
   }
+}
   
   export default HomePage;
