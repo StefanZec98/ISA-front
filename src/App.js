@@ -7,6 +7,7 @@ import Login from "./Components/Login"
 import UserService from "./services/UserService"
 import RegisterPage from "./Components/RegistrationPage"
 import LoginPage from "./Components/LoginPage"
+import registerStaff from "./Components/adminRegistration/registerStaff"
 
 import {
   BrowserRouter as Router,
@@ -31,6 +32,7 @@ function App() {
         
         <Route  to ="/registration" path ="/registration"  component={RegisterPage}/>
         <Route  to ="/login" path ="/login"  component={LoginPage}/>
+        <Route  to ="/registerStaff" path ="/registerStaff"  component={registerStaff}/>
         </Switch>
     </Router>
      

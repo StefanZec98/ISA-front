@@ -26,7 +26,7 @@ class LoginPage extends Component {
     handleLogin = () => {
         let loginDTO = { username: this.state.email, password: this.state.password };
         console.log(loginDTO);
-        Axios.post("http://localhost:8080/log/login", loginDTO, { validateStatus: () => true })
+        Axios.post("http://localhost:8080/auth/login", loginDTO, { validateStatus: () => true })
         .then((res) => {
             if (res.status === 401) {
                 this.setState({ errorHeader: "Bad credentials!"});
